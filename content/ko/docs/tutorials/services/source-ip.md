@@ -150,7 +150,7 @@ ip addr
 
 그런 다음 `wget` 을 사용해서 로컬 웹 서버에 쿼리한다.
 ```shell
-# 10.0.170.92를 파드의 IPv4 주소로 변경한다.
+# "10.0.170.92"를 "clusterip"라는 이름의 서비스의 IPv4 주소로 변경한다.
 wget -qO - 10.0.170.92
 ```
 ```
@@ -177,7 +177,7 @@ service/nodeport exposed
 
 ```shell
 NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services nodeport)
-NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="IPAddress")].address }')
+NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="InternalIP")].address }')
 ```
 
 클라우드 공급자 상에서 실행한다면,
@@ -206,17 +206,19 @@ client_address=10.240.0.3
 
 시각적으로
 
-```
-          client
-             \ ^
-              \ \
-               v \
-   node 1 <--- node 2
-    | ^   SNAT
-    | |   --->
-    v |
- endpoint
-```
+{{< mermaid >}}
+graph LR;
+  client(client)-->node2[Node 2];
+  node2-->client;
+  node2-. SNAT .->node1[Node 1];
+  node1-. SNAT .->node2;
+  node1-->endpoint(Endpoint);
+
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+  class node1,node2,endpoint k8s;
+  class client plain;
+{{</ mermaid >}}
 
 
 이를 피하기 위해 쿠버네티스는
@@ -226,7 +228,7 @@ client_address=10.240.0.3
 다른 노드로 트래픽 전달하지 않는다. 이 방법은 원본
 소스 IP 주소를 보존한다. 만약 로컬 엔드 포인트가 없다면,
 그 노드로 보내진 패킷은 버려지므로
-패킷 처리 규칙에서 정확한 소스 IP 임을 신뢰할 수 있으므로, 
+패킷 처리 규칙에서 정확한 소스 IP 임을 신뢰할 수 있으므로,
 패킷을 엔드포인트까지 전달할 수 있다.
 
 다음과 같이 `service.spec.externalTrafficPolicy` 필드를 설정하자.
@@ -249,7 +251,7 @@ for node in $NODES; do curl --connect-timeout 1 -s $node:$NODEPORT | grep -i cli
 client_address=104.132.1.79
 ```
 
-엔드포인트 파드가 실행 중인 노드에서 *올바른* 클라이언트 IP 주소인 
+엔드포인트 파드가 실행 중인 노드에서 *올바른* 클라이언트 IP 주소인
 딱 한 종류의 응답만 수신한다.
 
 어떻게 이렇게 되었는가:
@@ -261,17 +263,18 @@ client_address=104.132.1.79
 
 시각적으로
 
-```
-        client
-       ^ /   \
-      / /     \
-     / v       X
-   node 1     node 2
-    ^ |
-    | |
-    | v
- endpoint
-```
+{{< mermaid >}}
+graph TD;
+  client --> node1[Node 1];
+  client(client) --x node2[Node 2];
+  node1 --> endpoint(endpoint);
+  endpoint --> node1;
+
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+  class node1,node2,endpoint k8s;
+  class client plain;
+{{</ mermaid >}}
 
 
 
@@ -319,22 +322,12 @@ client_address=10.240.0.5
 
 그러나 구글 클라우드 엔진/GCE 에서 실행 중이라면 동일한 `service.spec.externalTrafficPolicy` 필드를 `Local`로 설정하면
 서비스 엔드포인트가 *없는* 노드는 고의로 헬스 체크에 실패하여
-강제로 로드밸런싱 트래픽을 받을 수 있는 노드 목록에서 
+강제로 로드밸런싱 트래픽을 받을 수 있는 노드 목록에서
 자신을 스스로 제거한다.
 
 시각적으로:
 
-```
-                      client
-                        |
-                      lb VIP
-                     / ^
-                    v /
-health check --->   node 1   node 2 <--- health check
-        200  <---   ^ |             ---> 500
-                    | V
-                 endpoint
-```
+![Source IP with externalTrafficPolicy](/images/docs/sourceip-externaltrafficpolicy.svg)
 
 이것은 어노테이션을 설정하여 테스트할 수 있다.
 
@@ -416,10 +409,10 @@ client_address=198.51.100.79
 끝나는 패킷 전달자를 이용한다.
 
 첫 번째 범주의 로드밸런서는 진짜 클라이언트 IP를 통신하기 위해
-HTTP [Forwarded]](https://tools.ietf.org/html/rfc7239#section-5.2)
+HTTP [Forwarded](https://tools.ietf.org/html/rfc7239#section-5.2)
 또는 [X-FORWARDED-FOR](https://en.wikipedia.org/wiki/X-Forwarded-For)
 헤더 또는
-[proxy protocol](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)과
+[프록시 프로토콜](https://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)과
 같은 로드밸런서와 백엔드 간에 합의된 프로토콜을 사용해야 한다.
 두 번째 범주의 로드밸런서는 서비스의 `service.spec.healthCheckNodePort` 필드의 저장된 포트를 가르키는
 HTTP 헬스 체크를 생성하여
@@ -448,5 +441,3 @@ kubectl delete deployment source-ip-app
 
 * [서비스를 통한 애플리케이션 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)에 더 자세히 본다.
 * 어떻게 [외부 로드밸런서 생성](/docs/tasks/access-application-cluster/create-external-load-balancer/)하는지 본다.
-
-

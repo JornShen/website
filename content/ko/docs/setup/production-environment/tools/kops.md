@@ -27,7 +27,7 @@ kops는 자동화된 프로비저닝 시스템인데,
 
 * 반드시 64-bit (AMD64 그리고 Intel 64)디바이스 아키텍쳐 위에서 `kops` 를 [설치](https://github.com/kubernetes/kops#installing) 한다.
 
-* [AWS 계정](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html)이 있고 [IAM 키](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys)를 생성하고 [구성](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration) 해야 한다.
+* [AWS 계정](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html)이 있고 [IAM 키](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys)를 생성하고 [구성](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration)해야 한다. IAM 사용자는 [적절한 권한](https://github.com/kubernetes/kops/blob/master/docs/getting_started/aws.md#setup-iam-user)이 필요하다.
 
 
 
@@ -140,7 +140,7 @@ Route53 hosted zone은 서브도메인도 지원한다. 여러분의 hosted zone
 `example.com`하위에는 그렇지 않을 수 있다).
 
 `dev.example.com`을 hosted zone으로 사용하고 있다고 가정해보자.
-보통 사용자는 [일반적인 방법](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingNewSubdomain.html) 에 따라 생성하거나
+보통 사용자는 [일반적인 방법](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingNewSubdomain.html) 에 따라 생성하거나
 `aws route53 create-hosted-zone --name dev.example.com --caller-reference 1` 와 같은 커맨드를 이용한다.
 
 그 후 도메인 내 레코드들을 확인할 수 있도록 상위 도메인내에 NS 레코드를 생성해야 한다. 여기서는,

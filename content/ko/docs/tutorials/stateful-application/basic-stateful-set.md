@@ -85,12 +85,15 @@ statefulset.apps/web created
 
 ```shell
 kubectl get service nginx
+```
+```
 NAME      TYPE         CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
 nginx     ClusterIP    None         <none>        80/TCP    12s
 ```
 그리고 `web` 스테이트풀셋 정보를 가져와서 모두 성공적으로 생성되었는지 확인한다.
 ```shell
 kubectl get statefulset web
+```
 ```
 NAME      DESIRED   CURRENT   AGE
 web       2         1         20s
@@ -119,7 +122,7 @@ web-1     1/1       Running   0         18s
 ```
 
 참고로 `web-1` 파드는 `web-0` 파드가 _Running_ ([파드의 단계](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-단계-phase) 참고)
-및 _Ready_ ([파드의 조건](/docs/concepts/workloads/pods/pod-lifecycle/#파드의-조건-condition)에서 `type` 참고) 상태가 되기 전에 시작하지 않음을 주의하자.
+및 _Ready_ ([파드의 조건](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-조건-condition)에서 `type` 참고) 상태가 되기 전에 시작하지 않음을 주의하자.
 
 ## 스테이트풀셋 안에 파드
 

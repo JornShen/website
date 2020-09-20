@@ -30,7 +30,7 @@ There are two hooks that are exposed to Containers:
 
 `PostStart`
 
-This hook executes immediately after a container is created.
+This hook is executed immediately after a container is created.
 However, there is no guarantee that the hook will execute before the container ENTRYPOINT.
 No parameters are passed to the handler.
 
@@ -42,7 +42,7 @@ so it must complete before the call to delete the container can be sent.
 No parameters are passed to the handler.
 
 A more detailed description of the termination behavior can be found in
-[Termination of Pods](/docs/concepts/workloads/pods/pod/#termination-of-pods).
+[Termination of Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
 
 ### Hook handler implementations
 

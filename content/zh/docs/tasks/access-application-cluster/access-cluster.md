@@ -42,7 +42,7 @@ Check the location and credentials that kubectl knows about with this command:
 
 当您第一次访问 Kubernetes API 的时候，我们建议您使用 Kubernetes CLI，`kubectl`。
 
-访问集群时，您需要知道集群的地址并且拥有访问的凭证。通常，这些在您通过 [Getting started guide](/docs/setup/) 安装集群时都是自动安装好的，或者其他人安装时也应该提供了凭证和集群地址。
+访问集群时，您需要知道集群的地址并且拥有访问的凭证。通常，这些在您通过 [Getting started guide](/zh/docs/setup/) 安装集群时都是自动安装好的，或者其他人安装时也应该提供了凭证和集群地址。
 
 通过以下命令检查 kubectl 是否知道集群地址及凭证：
 
@@ -268,7 +268,7 @@ is associated with a service account, and a credential (token) for that
 service account is placed into the filesystem tree of each container in that pod,
 at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
 -->
-### 从 Pod 中访问 API
+### 从 Pod 中访问 API   {#accessing-the-api-from-a-pod}
 
 当你从 Pod 中访问 API 时，定位和验证 apiserver 会有些许不同。
 
@@ -319,7 +319,7 @@ their own IPs.  In many cases, the node IPs, pod IPs, and some service IPs on a 
 routable, so they will not be reachable from a machine outside the cluster,
 such as your desktop machine.
 -->
-## 访问集群中正在运行的服务
+## 访问集群中正在运行的服务  {#accessing-services-running-on-the-cluster}
 
 上一节介绍了如何连接 Kubernetes API 服务。本节介绍如何连接到 Kubernetes 集群上运行的其他服务。
 在 Kubernetes 中，[节点](/docs/admin/node)，[pods](/docs/user-guide/pods) 和 [服务](/docs/user-guide/services) 都有自己的 IP。
@@ -540,7 +540,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - can be used to reach a Node, Pod, or Service
     - does load balancing when used to reach a Service
 -->
-1.  [apiserver 代理](#discovering-builtin-services)：
+2.  [apiserver 代理](#discovering-builtin-services)：
 
     - 内置于 apiserver 中
     - 将集群外部的用户连接到集群 IP，否则这些 IP 可能无法访问
@@ -559,7 +559,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - provides load balancing
     - is just used to reach services
 -->
-1.  [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips)：
+3.  [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips)：
 
     - 运行在每个节点上
     - 代理 UDP 和 TCP
@@ -574,7 +574,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - sits between all clients and one or more apiservers
     - acts as load balancer if there are several apiservers.
 -->
-1.  位于 apiserver 之前的 Proxy/Load-balancer：
+4.  位于 apiserver 之前的 Proxy/Load-balancer：
 
     - 存在和实现因集群而异（例如 nginx）
     - 位于所有客户和一个或多个 apiserver 之间
@@ -591,7 +591,7 @@ There are several different proxies you may encounter when using Kubernetes:
 Kubernetes users will typically not need to worry about anything other than the first two types.  The cluster admin
 will typically ensure that the latter types are setup correctly.
 -->
-1.  外部服务上的云负载均衡器：
+5.  外部服务上的云负载均衡器：
 
     - 由一些云提供商提供（例如 AWS ELB，Google Cloud Load Balancer）
     - 当 Kubernetes 服务类型为 `LoadBalancer` 时自动创建
@@ -599,5 +599,3 @@ will typically ensure that the latter types are setup correctly.
     - 具体实现因云提供商而异。
 
 除了前两种类型之外，Kubernetes 用户通常不需要担心任何其他问题。集群管理员通常会确保后者的正确配置。
-
-

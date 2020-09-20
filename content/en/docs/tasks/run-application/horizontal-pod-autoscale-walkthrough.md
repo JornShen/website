@@ -11,15 +11,13 @@ weight: 100
 
 <!-- overview -->
 
-Horizontal Pod Autoscaler automatically scales the number of pods
+Horizontal Pod Autoscaler automatically scales the number of Pods
 in a replication controller, deployment, replica set or stateful set based on observed CPU utilization
 (or, with beta support, on some other, application-provided metrics).
 
-This document walks you through an example of enabling Horizontal Pod Autoscaler for the php-apache server.  For more information on how Horizontal Pod Autoscaler behaves, see the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/).
-
-
-
-
+This document walks you through an example of enabling Horizontal Pod Autoscaler for the php-apache server.
+For more information on how Horizontal Pod Autoscaler behaves, see the 
+[Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/).
 
 ## {{% heading "prerequisites" %}}
 
@@ -47,7 +45,7 @@ The Dockerfile has the following content:
 
 ```
 FROM php:5-apache
-ADD index.php /var/www/html/index.php
+COPY index.php /var/www/html/index.php
 RUN chmod a+rx index.php
 ```
 
@@ -246,8 +244,8 @@ There are two other types of metrics, both of which are considered *custom metri
 object metrics.  These metrics may have names which are cluster specific, and require a more
 advanced cluster monitoring setup.
 
-The first of these alternative metric types is *pod metrics*.  These metrics describe pods, and
-are averaged together across pods and compared with a target value to determine the replica count.
+The first of these alternative metric types is *pod metrics*.  These metrics describe Pods, and
+are averaged together across Pods and compared with a target value to determine the replica count.
 They work much like resource metrics, except that they *only* support a `target` type of `AverageValue`.
 
 Pod metrics are specified using a metric block like this:
@@ -263,11 +261,11 @@ pods:
 ```
 
 The second alternative metric type is *object metrics*. These metrics describe a different
-object in the same namespace, instead of describing pods. The metrics are not necessarily
+object in the same namespace, instead of describing Pods. The metrics are not necessarily
 fetched from the object; they only describe it. Object metrics support `target` types of
 both `Value` and `AverageValue`.  With `Value`, the target is compared directly to the returned
 metric from the API. With `AverageValue`, the value returned from the custom metrics API is divided
-by the number of pods before being compared to the target. The following example is the YAML
+by the number of Pods before being compared to the target. The following example is the YAML
 representation of the `requests-per-second` metric.
 
 ```yaml
@@ -459,12 +457,12 @@ HorizontalPodAutoscaler.
 ## Appendix: Quantities
 
 All metrics in the HorizontalPodAutoscaler and metrics APIs are specified using
-a special whole-number notation known in Kubernetes as a *quantity*.  For example,
+a special whole-number notation known in Kubernetes as a
+{{< glossary_tooltip term_id="quantity" text="quantity">}}.  For example,
 the quantity `10500m` would be written as `10.5` in decimal notation.  The metrics APIs
 will return whole numbers without a suffix when possible, and will generally return
 quantities in milli-units otherwise.  This means you might see your metric value fluctuate
-between `1` and `1500m`, or `1` and `1.5` when written in decimal notation.  See the
-[glossary entry on quantities](/docs/reference/glossary?core-object=true#term-quantity) for more information.
+between `1` and `1500m`, or `1` and `1.5` when written in decimal notation.
 
 ## Appendix: Other possible scenarios
 

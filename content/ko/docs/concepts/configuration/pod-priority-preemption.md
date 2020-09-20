@@ -48,40 +48,6 @@ weight: 70
 이들은 일반적인 클래스이며 [중요한(critical) 컴포넌트가 항상 먼저 스케줄링이 되도록 하는 데](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/) 사용된다.
 {{< /note >}}
 
-## 선점을 비활성화하는 방법
-
-{{< caution >}}
-중요 파드는 클러스터에 리소스 압박(resource pressure)이 가해지면
-스케줄러 선점에 따라 스케줄링된다. 이런 이유로, 선점을 비활성화하지
-않는 것을 권장한다.
-{{< /caution >}}
-
-{{< note >}}
-쿠버네티스 1.15 이상에서, `NonPreemptingPriority` 기능이 활성화된 경우,
-프라이어리티클래스는 옵션을 `preemptionPolicy: Never` 로 설정할 수 있다.
-이렇게 하면 해당 프라이어리티클래스의 파드가 다른 파드를 축출할 수 없다.
-{{< /note >}}
-
-선점은 기본값이 `false`로 설정된 `disablePreemption` kube-scheduler
-플래그에 의해 제어된다.
-위의 주의에도 불구하고 선점을 비활성화하려는 경우,
-`disablePreemption` 을 `true` 로 설정할 수 있다.
-
-이 옵션은 컴포넌트 구성에서만 사용할 수 있으며
-이전 스타일의 커맨드 라인 옵션에서는 사용할 수 없다. 다음은 선점을 비활성화하는 샘플 컴포넌트
-구성이다.
-
-```yaml
-apiVersion: kubescheduler.config.k8s.io/v1alpha1
-kind: KubeSchedulerConfiguration
-algorithmSource:
-  provider: DefaultProvider
-
-...
-
-disablePreemption: true
-```
-
 ## 프라이어리티클래스
 
 프라이어리티클래스는 프라이어리티 클래스 이름에서 우선순위의 정수 값으로의 매핑을
@@ -135,7 +101,7 @@ description: "이 프라이어리티 클래스는 XYZ 서비스 파드에만 사
 
 ## 비-선점 프라이어리티클래스 {#non-preempting-priority-class}
 
-{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 `PreemptionPolicy: Never` 를 가진 파드는 낮은 우선순위 파드의 스케줄링 대기열의
 앞쪽에 배치되지만,
@@ -158,10 +124,6 @@ description: "이 프라이어리티 클래스는 XYZ 서비스 파드에만 사
 있다(기존의 기본 동작과 동일).
 `PreemptionPolicy` 가 `Never` 로 설정된 경우,
 해당 프라이어리티클래스의 파드는 비-선점될 것이다.
-
-`PreemptionPolicy` 필드를 사용하려면 `NonPreemptingPriority`
-[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)가
-활성화되어야 한다.
 
 예제 유스케이스는 데이터 과학 관련 워크로드이다.
 사용자는 다른 워크로드보다 우선순위가 높은 잡(job)을 제출할 수 있지만,
@@ -252,7 +214,7 @@ spec:
 #### 선점 피해자의 정상적인 종료
 
 파드가 축출되면, 축출된 피해자 파드는
-[정상적인 종료 기간](/ko/docs/concepts/workloads/pods/pod/#파드의-종료)을 가진다.
+[정상적인 종료 기간](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-종료)을 가진다.
 피해자 파드는 작업을 종료하고 빠져나가는 데(exit) 많은 시간을 가진다. 그렇지 않으면,
 파드는 강제종료(kill) 된다. 이 정상적인 종료 기간은 스케줄러가 파드를 축출하는
 지점과 보류 중인 파드(P)를 노드(N)에서 스케줄링할 수 있는 시점 사이의
@@ -265,7 +227,7 @@ spec:
 
 #### PodDisruptionBudget을 지원하지만, 보장하지 않음
 
-[Pod Disruption Budget(PDB)](/ko/docs/concepts/workloads/pods/disruptions/)은
+[Pod Disruption Budget](/ko/docs/concepts/workloads/pods/disruptions/)(PDB)은
 애플리케이션 소유자가 자발적 중단에서 동시에 다운된 복제된
 애플리케이션의 파드 수를 제한할 수 있다. 쿠버네티스는 파드를
 선점할 때 PDB를 지원하지만, PDB를 따르는 것이 최선의 노력이다. 스케줄러는
@@ -408,4 +370,3 @@ kubelet 리소스 부족 축출은 사용량이 요청을 초과하지 않는 �
 ## {{% heading "whatsnext" %}}
 
 * 프라이어리티클래스와 관련하여 리소스쿼터 사용에 대해 [기본적으로 프라이어리티 클래스 소비 제한](/ko/docs/concepts/policy/resource-quotas/#기본적으로-우선-순위-클래스-소비-제한)을 읽어보자.
-

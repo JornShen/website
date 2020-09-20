@@ -15,9 +15,6 @@ kubelet은 컨테이너를 재시작시키지만, 컨테이너는 깨끗한 상�
 
 [파드](/ko/docs/concepts/workloads/pods/pod/)에 대해 익숙해지는 것을 추천한다.
 
-
-
-
 <!-- body -->
 
 ## 배경
@@ -95,7 +92,7 @@ kubelet은 컨테이너를 재시작시키지만, 컨테이너는 깨끗한 상�
 ### awsElasticBlockStore {#awselasticblockstore}
 
 `awsElasticBlockStore` 볼륨은 아마존 웹 서비스 (AWS) [EBS
-볼륨](http://aws.amazon.com/ebs/)을 파드에 마운트 한다.  파드를
+볼륨](https://aws.amazon.com/ebs/)을 파드에 마운트 한다.  파드를
 제거할 때 지워지는 `emptyDir` 와는 다르게 EBS 볼륨의
 내용은 유지되고, 볼륨은 마운트 해제만 된다.  이 의미는 EBS 볼륨에
 데이터를 미리 채울 수 있으며, 파드간에 데이터를 "전달(handed off)"
@@ -153,7 +150,7 @@ awsElasticBlockStore 의 CSI 마이그레이션 기능이 활성화된 경우, �
 드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면, 클러스터에 [AWS EBS CSI
 드라이버](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)
 를 설치하고 `CSIMigration` 과 `CSIMigrationAWS`
-베타 기능을 활성화 해야 한다.
+베타 기능을 활성화해야 한다.
 
 #### CSI 마이그레이션 완료
 {{< feature-state for_k8s_version="v1.17" state="alpha" >}}
@@ -168,14 +165,14 @@ awsElasticBlockStore 의 CSI 마이그레이션 기능이 활성화된 경우, �
 
 #### CSI 마이그레이션
 
-{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 azureDisk의 CSI 마이그레이션 기능이 활성화된 경우, 기존 트리 내 플러그인에서
 `disk.csi.azure.com` 컨테이너 스토리지 인터페이스(CSI)
 드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면, 클러스터에 [Azure 디스크 CSI
 드라이버](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
 를 설치하고 `CSIMigration` 과 `CSIMigrationAzureDisk`
-알파 기능을 활성화 해야 한다.
+기능을 활성화해야 한다.
 
 ### azureFile {#azurefile}
 
@@ -193,7 +190,7 @@ azureFile의 CSI 마이그레이션 기능이 활성화된 경우, 기존 트리
 드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면, 클러스터에 [Azure 파일 CSI
 드라이버](https://github.com/kubernetes-sigs/azurefile-csi-driver)
 를 설치하고 `CSIMigration` 과 `CSIMigrationAzureFile`
-알파 기능을 활성화 해야 한다.
+알파 기능을 활성화해야 한다.
 
 ### cephfs {#cephfs}
 
@@ -396,8 +393,8 @@ Flocker는 파드가 스케줄 되어있는 노드에 다시 연결한다. 이�
 
 ### gcePersistentDisk {#gcepersistentdisk}
 
-`gcePersistentDisk` 볼륨은 구글 컴퓨트 엔진 (GCE) [퍼시스턴트
-디스크](http://cloud.google.com/compute/docs/disks)를 파드에 마운트 한다.  파드를
+`gcePersistentDisk` 볼륨은 구글 컴퓨트 엔진 (GCE)
+[퍼시스턴트 디스크](https://cloud.google.com/compute/docs/disks)를 파드에 마운트 한다.  파드를
 제거할 때 지워지는 `emptyDir` 와는 다르게 PD의 내용은 유지되고,
 볼륨은 마운트 해제만 된다.  이는 PD에 데이터를
 미리 채울 수 있으며, 파드간에 데이터를 "전달(handed off)" 할 수 있다는 것을 의미한다.
@@ -496,7 +493,7 @@ GCE PD의 CSI 마이그레이션 기능이 활성화된 경우 기존 트리 내
 드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면, 클러스터에 [GCE PD CSI
 드라이버](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)
 를 설치하고 `CSIMigration` 과 `CSIMigrationGCE`
-베타 기능을 활성화 해야 한다.
+베타 기능을 활성화해야 한다.
 
 ### gitRepo (사용 중단(deprecated)) {#gitrepo}
 
@@ -532,7 +529,7 @@ spec:
 
 ### glusterfs {#glusterfs}
 
-`glusterfs`  볼륨을 사용하면 [Glusterfs](http://www.gluster.org) (오픈
+`glusterfs`  볼륨을 사용하면 [Glusterfs](https://www.gluster.org) (오픈
 소스 네트워크 파일시스템) 볼륨을 파드에 마운트 할수 있다.  파드를
 제거할 때 지워지는 `emptyDir` 와는 다르게 `glusterfs`
 볼륨의 내용은 유지되고, 볼륨은 마운트 해제만 된다. 이 의미는
@@ -583,7 +580,7 @@ glusterfs 볼륨에 데이터를 미리 채울 수 있으며, 파드간에 데�
 * 쿠버네티스가 계획한 대로 리소스 인식 스케줄링을 추가하면 `hostPath` 에서
   사용되는 리소스를 설명할 수 없다.
 * 기본 호스트에 생성된 파일 또는 디렉터리는 root만 쓸 수 있다.
-  프로세스를 [특권을 가진(privileged) 컨테이너](/docs/user-guide/security-context)에서
+  프로세스를 [특권을 가진(privileged) 컨테이너](/docs/tasks/configure-pod-container/security-context/)에서
   루트로 실행하거나
   `hostPath` 볼륨에 쓸 수 있도록 호스트의 파일 권한을 수정해야 한다.
 
@@ -779,7 +776,7 @@ iSCSI 볼륨와 같은)를 "클레임" 할 수 있는 방법이다.
 서비스 어카운트 토큰의 프로젝션은 쿠버네티스 1.11에 기능이
 도입되었고 1.12에서 베타로 승격되었다.
 1.11에서 이 기능을 활성화 하려면 `TokenRequestProjection`
-[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
 True로 명시적인 설정이 필요하다.
 
 #### 시크릿, downward API 그리고 configmap이 있는 파드 예시.
@@ -960,8 +957,8 @@ CSI 는 쿠버네티스 내에서 Quobyte 볼륨을 사용하기 위해 권장�
 
 ### rbd {#rbd}
 
-`rbd` 볼륨을 사용하면 [Rados Block
-Device](http://ceph.com/docs/master/rbd/rbd/)를 파드에 마운트할 수
+`rbd` 볼륨을 사용하면
+[Rados Block Device](https://ceph.com/docs/master/rbd/rbd/)를 파드에 마운트할 수
 있다.  파드를 제거할 때 지워지는 `emptyDir` 와는 다르게 `rbd` 볼륨의
 내용은 유지되고, 볼륨은 마운트 해제만 된다.  이
 의미는 RBD 볼륨에 데이터를 미리 채울 수 있으며, 데이터를
@@ -1038,7 +1035,7 @@ tmpfs(RAM 기반 파일시스템)로 지원되기 때문에 비 휘발성 스토
 업데이트를 수신하지 못한다.
 {{< /note >}}
 
-시크릿에 대해서 [여기](/docs/user-guide/secrets)에 더 자세한 설명이 있다.
+시크릿에 대해서 [여기](/docs/concepts/configuration/secret/)에 더 자세한 설명이 있다.
 
 ### storageOS {#storageos}
 
@@ -1154,6 +1151,38 @@ spec:
 
 더 많은 예시는 [여기](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere)에서 확인할 수 있다.
 
+#### CSI 마이그레이션
+
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+
+vsphereVolume용 CSI 마이그레이션 기능이 활성화되면, 기존 인-트리 플러그인에서
+`csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 드라이버로 모든 플러그인 작업을 shim한다.
+이 기능을 사용하려면, [vSphere CSI
+드라이버](https://github.com/kubernetes-sigs/vsphere-csi-driver)가
+클러스터에 설치되어야 하며 `CSIMigration` 및 `CSIMigrationvSphere`
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있어야 한다.
+
+또한 최소 vSphere vCenter/ESXi 버전은 7.0u1이고 최소 HW 버전은 VM 버전 15여야 한다.
+
+{{< note >}}
+빌트인 vsphereVolume 플러그인의 다음 스토리지클래스 파라미터는 vSphere CSI 드라이버에서 지원되지 않는다.
+
+* `diskformat`
+* `hostfailurestotolerate`
+* `forceprovisioning`
+* `cachereservation`
+* `diskstripes`
+* `objectspacereservation`
+* `iopslimit`
+
+이러한 파라미터를 사용하여 생성된 기존 볼륨은 vSphere CSI 드라이버로 마이그레이션되지만, vSphere CSI 드라이버에서 생성된 새 볼륨은 이러한 파라미터를 따르지 않는다.
+{{< /note >}}
+
+#### CSI 마이그레이션 완료
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+
+vsphereVolume 플러그인이 컨트롤러 관리자와 kubelet에 의해 로드되지 않도록 기능을 비활성화하려면, 이 기능 플래그를 true로 설정해야 한다. 이를 위해서는 모든 워커 노드에 `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 드라이버가 설치되어 있어야 한다.
+
 
 ## subPath 사용하기
 
@@ -1197,7 +1226,6 @@ spec:
 
 
 `subPathExpr` 필드를 사용해서 Downward API 환경 변수로부터 `subPath` 디렉터리 이름을 구성한다.
-이 기능을 사용하려면 `VolumeSubpathEnvExpansion` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를 활성화 해야 한다. 쿠버네티스 1.15에서는 시작 시 기본적으로 활성화되어 있다.
 `subPath` 와 `subPathExpr` 속성은 상호 배타적이다.
 
 이 예제는 파드가 `subPathExpr` 을 사용해서 Downward API로부터 파드 이름을 사용해서 hostPath 볼륨 `/var/log/pods` 내에 `pod1` 디렉터리를 생성한다.  호스트 디렉터리 `/var/log/pods/pod1` 은 컨테이너의 `/logs` 에 마운트 된다.
@@ -1237,12 +1265,13 @@ spec:
 사용할 수 있는 공간의 크기는 제한이 없으며, 컨테이너간 또는 파드간
 격리는 없다.
 
-앞으로 `emptyDir` 과 `hostPath` 볼륨이 [리소스](/docs/user-guide/compute-resources)
+앞으로 `emptyDir` 과 `hostPath` 볼륨이 [리소스](/ko/docs/concepts/configuration/manage-resources-containers/)
 사양을 사용해서 일정량의 공간을 요청하고, 여러 매체 유형이
 있는 클러스터에 사용할 매체 유형을 선택할 수
 있을 것으로 기대한다.
 
 ## 아웃 오브 트리 볼륨 플러그인
+
 아웃 오브 트리 볼륨 플러그인에는 컨테이너 스토리지 인터페이스 (CSI) 그리고
 FlexVolume이 포함된다. 스토리지 벤더들은 이 플러그인을 쿠버네티스 리포지터리에
 추가하지 않고도 사용자 정의 스토리지 플러그인을 만들 수 있다.
@@ -1286,8 +1315,11 @@ CSI 호환 볼륨 드라이버가 쿠버네티스 클러스터에 배포되면
 `csi` 볼륨 유형을 사용해서 CSI 드라이버에 의해 노출된 볼륨에 연결, 마운트,
 등을 할 수 있다.
 
-`csi` 볼륨 유형은 파드에서의 직접 참조를 지원하지 않으며
-`PersistentVolumeClaim` 오브젝트를 통해 파드에서 참조할 수 있다.
+`csi` 볼륨은 세 가지 방법으로 파드에서 사용할 수 있다.
+- [`persistentVolumeClaim`](#persistentvolumeclaim)에 대한 참조를 통해서
+- [일반 임시 볼륨](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume)과 함께 (알파 기능)
+- 드라이버가 지원하는 경우
+  [CSI 임시 볼륨](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume) (베타 기능)
 
 스토리지 관리자가 다음 필드를 사용해서 CSI 퍼시스턴트 볼륨을
 구성할 수 있다.
@@ -1318,7 +1350,7 @@ CSI 호환 볼륨 드라이버가 쿠버네티스 클러스터에 배포되면
   정의된 대로 CSI 드라이버의 `CreateVolumeResponse` 와 `volume.attributes`
   필드에서 반환되는 매핑과 일치해야 한다.
   이 매핑은 `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest`,
-  그리고 `NodePublishVolumeRequest` 의 `volume_attributes` 필드를
+  그리고 `NodePublishVolumeRequest` 의 `volume_context` 필드를
   통해 CSI 드라이버로 전달된다.
 - `controllerPublishSecretRef`: CSI의 `ControllerPublishVolume`
   그리고 `ControllerUnpublishVolume` 호출을 완료하기 위해 CSI 드라이버에 전달하려는
@@ -1350,38 +1382,14 @@ CSI 설정 변경 없이 평소와 같이
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-이 기능을 사용하면 CSI 볼륨을 퍼시스턴트볼륨 대신에 파드 사양에 직접적으로 포함할 수 있다.
-이러한 방식으로 지정된 볼륨은 임시적이고 파드 재시작시에는 유지되지 않는다.
+파드 명세 내에서 CSI 볼륨을 직접 구성할 수
+있다. 이 방식으로 지정된 볼륨은 임시 볼륨이며
+파드가 다시 시작할 때 지속되지 않는다. 자세한 내용은 [임시
+볼륨](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)을
+참고한다.
 
-예시
+#### {{% heading "whatsnext" %}}
 
-```yaml
-kind: Pod
-apiVersion: v1
-metadata:
-  name: my-csi-app
-spec:
-  containers:
-    - name: my-frontend
-      image: busybox
-      volumeMounts:
-      - mountPath: "/data"
-        name: my-csi-inline-vol
-      command: [ "sleep", "1000000" ]
-  volumes:
-    - name: my-csi-inline-vol
-      csi:
-        driver: inline.storage.kubernetes.io
-        volumeAttributes:
-          foo: bar
-```
-
-이 기능을 사용하려면 CSIInlineVolume 기능 게이트를 활성화 해야 한다.
-쿠버네티스 1.16 시작시 기본적으로 활성화 되어있다.
-
-CSI 임시 볼륨은 CSI 드라이버의 하위집합에서만 지원된다. CSI 드라이버의 목록은 [여기](https://kubernetes-csi.github.io/docs/drivers.html)를 본다.
-
-# 개발자 리소스
 CSI 드라이버의 개발 방법에 대한 더 자세한 정보는 [쿠버네티스-csi
 문서](https://kubernetes-csi.github.io/docs/)를 참조한다.
 

@@ -10,11 +10,16 @@ card:
 ---
 
 <!-- overview -->
-The kubectl command line tool lets you control Kubernetes clusters. For configuration, `kubectl` looks for a file named `config` in the `$HOME/.kube` directory. You can specify other [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) files by setting the KUBECONFIG environment variable or by setting the [`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) flag.
+The kubectl command line tool lets you control Kubernetes clusters.
+For configuration, `kubectl` looks for a file named `config` in the `$HOME/.kube` directory.
+You can specify other [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+files by setting the KUBECONFIG environment variable or by setting the
+[`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) flag.
 
-This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) reference documentation. For installation instructions see [installing kubectl](/docs/tasks/kubectl/install/).
-
-
+This overview covers `kubectl` syntax, describes the command operations, and provides common examples.
+For details about each command, including all the supported flags and subcommands, see the
+[kubectl](/docs/reference/generated/kubectl/kubectl-commands/) reference documentation.
+For installation instructions see [installing kubectl](/docs/tasks/tools/install-kubectl/).
 
 <!-- body -->
 
@@ -28,9 +33,12 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 where `command`, `TYPE`, `NAME`, and `flags` are:
 
-* `command`: Specifies the operation that you want to perform on one or more resources, for example `create`, `get`, `describe`, `delete`.
+* `command`: Specifies the operation that you want to perform on one or more resources, 
+for example `create`, `get`, `describe`, `delete`.
 
-* `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-insensitive and you can specify the singular, plural, or abbreviated forms. For example, the following commands produce the same output:
+* `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-insensitive and
+  you can specify the singular, plural, or abbreviated forms.
+  For example, the following commands produce the same output:
 
    ```shell
    kubectl get pod pod1
@@ -119,14 +127,15 @@ To learn more about command operations, see the [kubectl](/docs/reference/kubect
 
 The following table includes a list of all the supported resource types and their abbreviated aliases.
 
-(This output can be retrieved from `kubectl api-resources`, and was accurate as of Kubernetes 1.13.3.)
+(This output can be retrieved from `kubectl api-resources`, and was accurate as of Kubernetes 1.19.1.)
 
-| Resource Name | Short Names | API Group | Namespaced | Resource Kind |
+| NAME | SHORTNAMES | APIGROUP | NAMESPACED | KIND |
 |---|---|---|---|---|
-| `bindings` | | | true | Binding|
+| `bindings` | | | true | Binding |
 | `componentstatuses` | `cs` | | false | ComponentStatus |
 | `configmaps` | `cm` | | true | ConfigMap |
 | `endpoints` | `ep` | | true | Endpoints |
+| `events` | `ev` | | true | Event |
 | `limitranges` | `limits` | | true | LimitRange |
 | `namespaces` | `ns` | | false | Namespace |
 | `nodes` | `no` | | false | Node |
@@ -134,14 +143,14 @@ The following table includes a list of all the supported resource types and thei
 | `persistentvolumes` | `pv` | | false | PersistentVolume |
 | `pods` | `po` | | true | Pod |
 | `podtemplates` | | | true | PodTemplate |
-| `replicationcontrollers` | `rc` | | true| ReplicationController |
+| `replicationcontrollers` | `rc` | | true | ReplicationController |
 | `resourcequotas` | `quota` | | true | ResourceQuota |
 | `secrets` | | | true | Secret |
 | `serviceaccounts` | `sa` | | true | ServiceAccount |
 | `services` | `svc` | | true | Service |
 | `mutatingwebhookconfigurations` | | admissionregistration.k8s.io | false | MutatingWebhookConfiguration |
 | `validatingwebhookconfigurations` | | admissionregistration.k8s.io | false | ValidatingWebhookConfiguration |
-| `customresourcedefinitions` | `crd`, `crds` | apiextensions.k8s.io | false |  CustomResourceDefinition |
+| `customresourcedefinitions` | `crd,crds` | apiextensions.k8s.io | false | CustomResourceDefinition |
 | `apiservices` | | apiregistration.k8s.io | false | APIService |
 | `controllerrevisions` | | apps | true | ControllerRevision |
 | `daemonsets` | `ds` | apps | true | DaemonSet |
@@ -158,9 +167,15 @@ The following table includes a list of all the supported resource types and thei
 | `jobs` | | batch | true | Job |
 | `certificatesigningrequests` | `csr` | certificates.k8s.io | false | CertificateSigningRequest |
 | `leases` | | coordination.k8s.io | true | Lease |
+| `endpointslices` |  | discovery.k8s.io | true | EndpointSlice |
 | `events` | `ev` | events.k8s.io | true | Event |
 | `ingresses` | `ing` | extensions | true | Ingress |
+| `flowschemas` |  | flowcontrol.apiserver.k8s.io | false | FlowSchema |
+| `prioritylevelconfigurations` |  | flowcontrol.apiserver.k8s.io | false | PriorityLevelConfiguration |
+| `ingressclasses` |  | networking.k8s.io | false | IngressClass |
+| `ingresses` | `ing` | networking.k8s.io | true | Ingress |
 | `networkpolicies` | `netpol` | networking.k8s.io | true | NetworkPolicy |
+| `runtimeclasses` |  | node.k8s.io | false | RuntimeClass |
 | `poddisruptionbudgets` | `pdb` | policy | true | PodDisruptionBudget |
 | `podsecuritypolicies` | `psp` | policy | false | PodSecurityPolicy |
 | `clusterrolebindings` | | rbac.authorization.k8s.io | false | ClusterRoleBinding |
@@ -170,7 +185,7 @@ The following table includes a list of all the supported resource types and thei
 | `priorityclasses` | `pc` | scheduling.k8s.io | false | PriorityClass |
 | `csidrivers` | | storage.k8s.io | false | CSIDriver |
 | `csinodes` | | storage.k8s.io | false | CSINode |
-| `storageclasses` | `sc` | storage.k8s.io |  false | StorageClass |
+| `storageclasses` | `sc` | storage.k8s.io | false | StorageClass |
 | `volumeattachments` | | storage.k8s.io | false | VolumeAttachment |
 
 ## Output options
@@ -208,11 +223,13 @@ In this example, the following command outputs the details for a single pod as a
 kubectl get pod web-pod-13je7 -o yaml
 ```
 
-Remember: See the [kubectl](/docs/user-guide/kubectl/) reference documentation for details about which output format is supported by each command.
+Remember: See the [kubectl](/docs/reference/kubectl/kubectl/) reference documentation
+for details about which output format is supported by each command.
 
 #### Custom columns
 
-To define custom columns and output only the details that you want into a table, you can use the `custom-columns` option. You can choose to define the custom columns inline or use a template file: `-o custom-columns=<spec>` or `-o custom-columns-file=<filename>`.
+To define custom columns and output only the details that you want into a table, you can use the `custom-columns` option.
+You can choose to define the custom columns inline or use a template file: `-o custom-columns=<spec>` or `-o custom-columns-file=<filename>`.
 
 ##### Examples
 
@@ -496,11 +513,7 @@ kubectl whoami
 Current user: plugins-user
 ```
 
-
-
-
 ## {{% heading "whatsnext" %}}
-
 
 * Start using the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) commands.
 

@@ -1,7 +1,7 @@
 ---
 title: 레플리카셋
 content_type: concept
-weight: 10
+weight: 20
 ---
 
 <!-- overview -->
@@ -241,9 +241,10 @@ API 버전에 대해서는 `frontend.yaml` 예제의 첫 번째 줄을 참고한
 `.spec.selector` 필드는 [레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/)이다.
 [앞서](#레플리카-셋의-작동-방식) 논의한 것처럼 이 레이블은 소유될 가능성이 있는 파드를 식별하는데 사용된다.
 우리 `frontend.yaml` 예제에서의 셀렉터는 다음과 같다.
-```shell
+
+```yaml
 matchLabels:
-	tier: frontend
+  tier: frontend
 ```
 
 레플리카셋에서 `.spec.template.metadata.labels`는 `spec.selector`과 일치해야 하며
@@ -346,7 +347,7 @@ kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
 
 ### 잡
 
-스스로 종료되는 것이 예상되는 파드의 경우에는 레플리카셋 대신 [`잡`](/docs/concepts/jobs/run-to-completion-finite-workloads/)을 이용한다
+스스로 종료되는 것이 예상되는 파드의 경우에는 레플리카셋 대신 [`잡`](/ko/docs/concepts/workloads/controllers/job/)을 이용한다
 (즉, 배치 잡).
 
 ### 데몬셋

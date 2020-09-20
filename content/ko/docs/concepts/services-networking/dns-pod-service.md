@@ -65,10 +65,19 @@ SRV 레코드는 노멀 서비스 또는
 
 ### A/AAAA 레코드
 
-디플로이먼트나 데몬셋으로 생성되는 파드는 다음과 같은
-DNS 주소를 갖게 된다.
+일반적으로 파드에는 다음과 같은 DNS 주소를 갖는다.
 
-`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example.`
+`pod-ip-address.my-namespace.pod.cluster-domain.example`.
+
+예를 들어, `default` 네임스페이스의 파드에 IP 주소 172.17.0.3이 있고,
+클러스터의 도메인 이름이 `cluster.local` 이면, 파드는 다음과 같은 DNS 주소를 갖는다.
+
+`172-17-0-3.default.pod.cluster.local`.
+
+서비스에 의해 노출된 디플로이먼트(Deployment)나 데몬셋(DaemonSet)에 의해 생성된
+모든 파드는 다음과 같은 DNS 주소를 갖는다.
+
+`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example`.
 
 ### 파드의 hostname 및 subdomain 필드
 
@@ -154,6 +163,24 @@ A 또는 AAAA 레코드만 생성할 수 있다. (`default-subdomain.my-namespac
 또한 서비스에서 `publishNotReadyAddresses=True` 를 설정하지 않았다면, 파드가 준비 상태가 되어야 레코드를 가질 수 있다.
 {{< /note >}}
 
+### 파드의 setHostnameAsFQDN 필드 {# pod-sethostnameasfqdn-field}
+
+{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
+
+**전제 조건**: `SetHostnameAsFQDN` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
+{{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}}에
+대해 활성화해야 한다.
+
+파드가 전체 주소 도메인 이름(FQDN)을 갖도록 구성된 경우, 해당 호스트네임은 짧은 호스트네임이다. 예를 들어, 전체 주소 도메인 이름이 `busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example` 인 파드가 있는 경우, 기본적으로 해당 파드 내부의 `hostname` 명령어는 `busybox-1` 을 반환하고 `hostname --fqdn` 명령은 FQDN을 반환한다.
+
+파드 명세에서 `setHostnameAsFQDN: true` 를 설정하면, kubelet은 파드의 FQDN을 해당 파드 네임스페이스의 호스트네임에 기록한다. 이 경우, `hostname` 과 `hostname --fqdn` 은 모두 파드의 FQDN을 반환한다.
+
+{{< note >}}
+리눅스에서, 커널의 호스트네임 필드(`struct utsname` 의 `nodename` 필드)는 64자로 제한된다.
+
+파드에서 이 기능을 사용하도록 설정하고 FQDN이 64자보다 길면, 시작되지 않는다. 파드는 파드 호스트네임과 클러스터 도메인에서 FQDN을 구성하지 못한다거나, FQDN `long-FDQN` 이 너무 길다(최대 64자, 70자 요청인 경우)와 같은 오류 이벤트를 생성하는 `Pending` 상태(`kubectl` 에서 표시하는 `ContainerCreating`)로 유지된다. 이 시나리오에서 사용자 경험을 개선하는 한 가지 방법은 사용자가 최상위 레벨을 오브젝트(예를 들어, 디플로이먼트)를 생성할 때 FQDN 크기를 제어하기 위해 [어드미션 웹훅 컨트롤러](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)를 생성하는 것이다.
+{{< /note >}}
+
 ### 파드의 DNS 정책
 
 DNS 정책은 파드별로 설정할 수 있다.
@@ -162,13 +189,13 @@ DNS 정책은 파드별로 설정할 수 있다.
 
 - "`Default`": 파드는 파드가 실행되고 있는 노드로부터 네임 해석 설정(the name resolution configuration)을 상속받는다.
   자세한 내용은
-  [관련 논의](/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node)에서
+  [관련 논의](/ko/docs/tasks/administer-cluster/dns-custom-nameservers/)에서
   확인할 수 있다.
 - "`ClusterFirst`": "`www.kubernetes.io`"와 같이 클러스터 도메인 suffix 구성과
   일치하지 않는 DNS 쿼리는 노드에서 상속된 업스트림 네임서버로 전달된다.
   클러스터 관리자는 추가 스텁-도메인(stub-domain)과 업스트림 DNS 서버를 구축할 수 있다.
   그러한 경우 DNS 쿼리를 어떻게 처리하는지에 대한 자세한 내용은
-  [관련 논의](/docs/tasks/administer-cluster/dns-custom-nameservers/#effects-on-pods)에서
+  [관련 논의](/ko/docs/tasks/administer-cluster/dns-custom-nameservers/)에서
   확인할 수 있다.
 - "`ClusterFirstWithHostNet`": hostNetwork에서 running 상태인 파드의 경우 DNS 정책인
   "`ClusterFirstWithHostNet`"을 명시적으로 설정해야 한다.
@@ -179,7 +206,7 @@ DNS 정책은 파드별로 설정할 수 있다.
 
 {{< note >}}
 "Default"는 기본 DNS 정책이 아니다. `dnsPolicy`가 명시적으로 지정되어있지 않다면
-“ClusterFirst”가 기본값으로 사용된다.
+"ClusterFirst"가 기본값으로 사용된다.
 {{< /note >}}
 
 
@@ -272,4 +299,4 @@ options ndots:5
 
 
 DNS 구성 관리에 대한 지침은
-[DNS 서비스 구성](/docs/tasks/administer-cluster/dns-custom-nameservers/)에서 확인할 수 있다.
+[DNS 서비스 구성](/ko/docs/tasks/administer-cluster/dns-custom-nameservers/)에서 확인할 수 있다.

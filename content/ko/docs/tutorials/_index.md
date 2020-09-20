@@ -1,6 +1,7 @@
 ---
 title: 튜토리얼
 main_menu: true
+no_list: true
 weight: 60
 content_type: concept
 ---
@@ -13,8 +14,6 @@ content_type: concept
 섹션으로 구성된다.
 각 튜토리얼을 따라하기 전에, 나중에 참조할 수 있도록
 [표준 용어집](/ko/docs/reference/glossary/) 페이지를 북마크하기를 권한다.
-
-
 
 <!-- body -->
 
@@ -46,16 +45,6 @@ content_type: concept
 
 * [분산 시스템 코디네이터 ZooKeeper 실행하기](/ko/docs/tutorials/stateful-application/zookeeper/)
 
-## CI/CD 파이프라인
-
-* [Set Up a CI/CD Pipeline with Kubernetes Part 1: Overview](https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/5/set-cicd-pipeline-kubernetes-part-1-overview)
-
-* [Set Up a CI/CD Pipeline with a Jenkins Pod in Kubernetes (Part 2)](https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/6/set-cicd-pipeline-jenkins-pod-kubernetes-part-2)
-
-* [Run and Scale a Distributed Crossword Puzzle App with CI/CD on Kubernetes (Part 3)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/run-and-scale-distributed-crossword-puzzle-app-cicd-kubernetes-part-3)
-
-* [Set Up CI/CD for a Distributed Crossword Puzzle App on Kubernetes (Part 4)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/set-cicd-distributed-crossword-puzzle-app-kubernetes-part-4)
-
 ## 클러스터
 
 * [AppArmor](/ko/docs/tutorials/clusters/apparmor/)
@@ -64,13 +53,8 @@ content_type: concept
 
 * [소스 IP 주소 이용하기](/ko/docs/tutorials/services/source-ip/)
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 튜토리얼을 작성하고 싶다면, 튜토리얼 페이지 유형에 대한 정보가 있는
 [콘텐츠 페이지 유형](/docs/contribute/style/page-content-types/)
 페이지를 참조한다.
-
-

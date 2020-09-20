@@ -112,20 +112,26 @@ copyright_linux =  "Copyright © 2020 The Linux Foundation ®."
 version_menu = "Versions"
 
 time_format_blog = "Monday, January 02, 2006"
+time_format_default = "January 02, 2006 at 3:04 PM PST"
+
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.18"
+latest = "v1.19"
 
-fullversion = "v1.18.0"
-version = "v1.18"
+fullversion = "v1.19.0"
+version = "v1.19"
 githubbranch = "master"
 docsbranch = "master"
 deprecated = false
 currentUrl = "https://kubernetes.io/docs/home/"
 nextUrl = "https://kubernetes-io-vnext-staging.netlify.com/"
-githubWebsiteRepo = "github.com/kubernetes/website"
+
+# See codenew shortcode
 githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
+
+# GitHub repository link for editing a page and opening issues.
+github_repo = "https://github.com/kubernetes/website"
 
 # param for displaying an announcement block on every page.
 # See /i18n/en.toml for message text and title.
@@ -157,39 +163,40 @@ js = [
 ]
 
 [[params.versions]]
-fullversion = "v1.18.0"
-version = "v1.18"
-githubbranch = "v1.18.0"
-docsbranch = "release-1.18"
+fullversion = "v1.19.0"
+version = "v1.19"
+githubbranch = "v1.19.0"
+docsbranch = "master"
 url = "https://kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.17.4"
+fullversion = "v1.18.8"
+version = "v1.18"
+githubbranch = "v1.18.8"
+docsbranch = "release-1.18"
+url = "https://v1-18.docs.kubernetes.io"
+
+[[params.versions]]
+fullversion = "v1.17.11"
 version = "v1.17"
-githubbranch = "v1.17.4"
+githubbranch = "v1.17.11"
 docsbranch = "release-1.17"
 url = "https://v1-17.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.16.8"
+fullversion = "v1.16.14"
 version = "v1.16"
-githubbranch = "v1.16.8"
+githubbranch = "v1.16.14"
 docsbranch = "release-1.16"
 url = "https://v1-16.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.15.11"
+fullversion = "v1.15.12"
 version = "v1.15"
-githubbranch = "v1.15.11"
+githubbranch = "v1.15.12"
 docsbranch = "release-1.15"
 url = "https://v1-15.docs.kubernetes.io"
 
-[[params.versions]]
-fullversion = "v1.14.10"
-version = "v1.14"
-githubbranch = "v1.14.10"
-docsbranch = "release-1.14"
-url = "https://v1-14.docs.kubernetes.io"
 
 # User interface configuration
 [params.ui]
@@ -230,7 +237,7 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 
 [[params.links.user]]
 	name = "Calendar"
-	url = "https://calendar.google.com/calendar/embed?src=nt2tcnbtbied3l6gi2h29slvc0%40group.calendar.google.com"
+	url = "https://calendar.google.com/calendar/embed?src=calendar%40kubernetes.io"
 	icon = "fas fa-calendar-alt"
   desc = "Google Calendar for Kubernetes"
 
@@ -274,6 +281,7 @@ description = "Production-Grade Container Orchestration"
 languageName ="English"
 # Weight used for sorting.
 weight = 1
+languagedirection = "ltr"
 
 [languages.zh]
 title = "Kubernetes"
@@ -281,6 +289,7 @@ description = "生产级别的容器编排系统"
 languageName = "中文 Chinese"
 weight = 2
 contentDir = "content/zh"
+languagedirection = "ltr"
 
 [languages.zh.params]
 time_format_blog = "2006.01.02"
@@ -292,6 +301,7 @@ description = "운영 수준의 컨테이너 오케스트레이션"
 languageName = "한국어 Korean"
 weight = 3
 contentDir = "content/ko"
+languagedirection = "ltr"
 
 [languages.ko.params]
 time_format_blog = "2006.01.02"
@@ -303,6 +313,7 @@ description = "プロダクショングレードのコンテナ管理基盤"
 languageName = "日本語 Japanese"
 weight = 4
 contentDir = "content/ja"
+languagedirection = "ltr"
 
 [languages.ja.params]
 time_format_blog = "2006.01.02"
@@ -314,6 +325,7 @@ description = "Solution professionnelle d’orchestration de conteneurs"
 languageName ="Français"
 weight = 5
 contentDir = "content/fr"
+languagedirection = "ltr"
 
 [languages.fr.params]
 time_format_blog = "02.01.2006"
@@ -326,6 +338,7 @@ description = "Orchestrazione di Container in produzione"
 languageName = "Italiano"
 weight = 6
 contentDir = "content/it"
+languagedirection = "ltr"
 
 [languages.it.params]
 time_format_blog = "02.01.2006"
@@ -338,6 +351,7 @@ description = "Production-Grade Container Orchestration"
 languageName ="Norsk"
 weight = 7
 contentDir = "content/no"
+languagedirection = "ltr"
 
 [languages.no.params]
 time_format_blog = "02.01.2006"
@@ -350,6 +364,7 @@ description = "Produktionsreife Container-Orchestrierung"
 languageName ="Deutsch"
 weight = 8
 contentDir = "content/de"
+languagedirection = "ltr"
 
 [languages.de.params]
 time_format_blog = "02.01.2006"
@@ -362,6 +377,7 @@ description = "Orquestación de contenedores para producción"
 languageName ="Español"
 weight = 9
 contentDir = "content/es"
+languagedirection = "ltr"
 
 [languages.es.params]
 time_format_blog = "02.01.2006"
@@ -374,6 +390,7 @@ description = "Orquestração de contêineres em nível de produção"
 languageName ="Português"
 weight = 9
 contentDir = "content/pt"
+languagedirection = "ltr"
 
 [languages.pt.params]
 time_format_blog = "02.01.2006"
@@ -386,6 +403,7 @@ description = "Orkestrasi Kontainer dengan Skala Produksi"
 languageName ="Bahasa Indonesia"
 weight = 10
 contentDir = "content/id"
+languagedirection = "ltr"
 
 [languages.id.params]
 time_format_blog = "02.01.2006"
@@ -398,6 +416,7 @@ description = "Production-Grade Container Orchestration"
 languageName = "Hindi"
 weight = 11
 contentDir = "content/hi"
+languagedirection = "ltr"
 
 [languages.hi.params]
 time_format_blog = "01.02.2006"
@@ -409,6 +428,7 @@ description = "Giải pháp điều phối container trong môi trường produc
 languageName = "Tiếng Việt"
 contentDir = "content/vi"
 weight = 12
+languagedirection = "ltr"
 
 [languages.ru]
 title = "Kubernetes"
@@ -416,6 +436,7 @@ description = "Первоклассная оркестрация контейн�
 languageName = "Русский"
 weight = 12
 contentDir = "content/ru"
+languagedirection = "ltr"
 
 [languages.ru.params]
 time_format_blog = "02.01.2006"
@@ -428,6 +449,7 @@ description = "Produkcyjny system zarządzania kontenerami"
 languageName = "Polski"
 weight = 13
 contentDir = "content/pl"
+languagedirection = "ltr"
 
 [languages.pl.params]
 time_format_blog = "01.02.2006"
@@ -440,6 +462,7 @@ description = "Довершена система оркестрації конт
 languageName = "Українська"
 weight = 14
 contentDir = "content/uk"
+languagedirection = "ltr"
 
 [languages.uk.params]
 time_format_blog = "02.01.2006"

@@ -80,7 +80,8 @@ spec:
       requests:
         cpu: 700m
         memory: 200Mi
-...
+    ...
+status:
   qosClass: Guaranteed
 ```
 
@@ -134,7 +135,8 @@ spec:
         memory: 200Mi
       requests:
         memory: 100Mi
-...
+  ...
+status:
   qosClass: Burstable
 ```
 
@@ -174,6 +176,7 @@ spec:
     ...
     resources: {}
   ...
+status:
   qosClass: BestEffort
 ```
 
@@ -219,6 +222,7 @@ spec:
     name: qos-demo-4-ctr-2
     resources: {}
     ...
+status:
   qosClass: Burstable
 ```
 
@@ -265,4 +269,3 @@ kubectl delete namespace qos-example
 * [API 오브젝트 할당량 구성](/docs/tasks/administer-cluster/quota-api-object/)
 
 * [노드의 토폴로지 관리 정책 제어](/docs/tasks/administer-cluster/topology-manager/)
-

@@ -15,20 +15,15 @@ like
 [kubectl apply](/docs/reference/generated/kubectl/kubectl-commands#apply) and
 [kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint).
 This topic does not show how to generate the
-[kubectl](/docs/reference/generated/kubectl/kubectl/)
+[kubectl](/docs/reference/generated/kubectl/kubectl-commands/)
 options reference page. For instructions on how to generate the kubectl options
 reference page, see
-[Generating Reference Pages for Kubernetes Components and Tools](/docs/home/contribute/generated-reference/kubernetes-components/).
+[Generating Reference Pages for Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/).
 {{< /note >}}
-
-
 
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "prerequisites-ref-docs.md" >}}
-
-
 
 <!-- steps -->
 
@@ -132,7 +127,7 @@ Monitor your cherry-pick pull request until it is merged into the release branch
 
 {{< note >}}
 Proposing a cherry pick requires that you have permission to set a label and a
-milestone in your pull request. If you don’t have those permissions, you will
+milestone in your pull request. If you don't have those permissions, you will
 need to work with someone who can set the label and milestone for you.
 {{< /note >}}
 

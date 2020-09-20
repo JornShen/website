@@ -10,8 +10,6 @@ weight: 10
 파드를 실행할 수 있도록 {{< glossary_tooltip text="파드" term_id="pod" >}}가
 {{< glossary_tooltip text="노드" term_id="node" >}}에 적합한지 확인하는 것을 말한다.
 
-
-
 <!-- body -->
 
 ## 스케줄링 개요 {#scheduling}
@@ -79,7 +77,7 @@ _스코어링_ 단계에서 스케줄러는 목록에 남아있는 노드의 순
 스케줄러의 필터링 및 스코어링 동작을 구성하는 데 지원되는 두 가지
 방법이 있다.
 
-1. [스케줄링 정책](/docs/reference/scheduling/policies)을 사용하면
+1. [스케줄링 정책](/docs/reference/scheduling/config/#profiles)을 사용하면
    필터링을 위한 _단정(Predicates)_ 및 스코어링을 위한 _우선순위(Priorities)_ 를 구성할 수 있다.
 1. [스케줄링 프로파일](/docs/reference/scheduling/profiles)을 사용하면
    `QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit` 등의
@@ -92,7 +90,10 @@ _스코어링_ 단계에서 스케줄러는 목록에 남아있는 노드의 순
 * [스케줄러 성능 튜닝](/ko/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)에 대해 읽기
 * [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/workloads/pods/pod-topology-spread-constraints/)에 대해 읽기
 * kube-scheduler의 [레퍼런스 문서](/docs/reference/command-line-tools-reference/kube-scheduler/) 읽기
-* [멀티 스케줄러 구성하기](/docs/tasks/administer-cluster/configure-multiple-schedulers/)에 대해 배우기
+* [멀티 스케줄러 구성하기](/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)에 대해 배우기
 * [토폴로지 관리 정책](/docs/tasks/administer-cluster/topology-manager/)에 대해 배우기
 * [파드 오버헤드](/ko/docs/concepts/configuration/pod-overhead/)에 대해 배우기
-
+* 볼륨을 사용하느 파드의 스케줄링에 대해 배우기
+  * [볼륨 토폴리지 지원](/ko/docs/concepts/storage/storage-classes/#볼륨-바인딩-모드)
+  * [스토리지 용량 추적](/docs/concepts/storage/storage-capacity/)
+  * [노드별 볼륨 한도](/ko/docs/concepts/storage/storage-limits/)
